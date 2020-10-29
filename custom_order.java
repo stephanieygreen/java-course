@@ -1,9 +1,18 @@
 // Code for Beginning Java's Cake & Cupcake Shop Tutorial
 
 import java.util.Scanner;  // Needed for the Scanner class to read input
+import java.util.Arrays;
 
 public class custom_order {
 
+    //addOns method
+    static double totalCost;
+    static String addOnList;
+
+static void addItem(String item, double cost){
+            totalCost+=cost;
+            addOnList+=item;
+        }
     // STEP 1 PRINTING HELLO WORLD TO CONSOLE
     public static void main(String[] args) {
         
@@ -20,10 +29,16 @@ public class custom_order {
       String fillingType;
       String toppings;
       String input;
+      
+      String[] frostingTypeList ={"vanilla","chocolate","strawberry", "cocoa"};
+      String[] fillingTypeList ={"mocha","mint","lemon","caramel","vanilla"};
+      String[] toppingsList ={"sprinkles","cinnamon","cocoa","nuts"};
 
       double cost = 15.00;
       final double TAX_RATE = .08;
       double tax;
+
+
 
 	 
     // Introduce shop and prompt user to input first name
@@ -40,7 +55,7 @@ public class custom_order {
       firstName = keyboard.nextLine();
 
       System.out.println(firstName+", please see our MENU below: ");
-      System.out.println("\n");
+      System.out.print("\n");
       
     // TEST CODE     
     
@@ -73,6 +88,10 @@ public class custom_order {
       System.out.println("What type of FROSTING do you want? ");
       System.out.println("Vanilla, Chocolate, Strawberry or Cocoa");
       frostingType = keyboard.nextLine();
+      if(Arrays.asList(frostingTypeList).contains(frostingType)){
+        addItem(frostingType,2);
+        addOnList=frostingType+", ";
+      }
    
 	 
 	 
@@ -85,7 +104,10 @@ public class custom_order {
       System.out.println("What type of FILLING do you want? ");
       System.out.println("Mocha, Mint, Lemon, Caramel or Raspberry");
       fillingType = keyboard.nextLine();
-	  
+	  if(Arrays.asList(fillingTypeList).contains(fillingType)){
+        addItem(fillingType,2);
+        addOnList+=", ";
+      }
 	  
       
     // TEST CODE
@@ -94,7 +116,10 @@ public class custom_order {
       System.out.println("What type of TOPPINGS do you want? ");
       System.out.println("Sprinkles, Cinnamon, Cocoa, Nuts");
       toppings = keyboard.nextLine();
-	
+	  if(Arrays.asList(toppingsList).contains(toppings)){
+        addItem(toppings,2);
+        addOnList+=", ";
+      } 
       
       
     // TEST CODE
@@ -118,9 +143,13 @@ public class custom_order {
     // TEST CODE
       
     // STEP 10 DISPLAY COST AND SALES TAX
-        System.out.printf("The cost of your order is $%.2f\n", cost);
-        tax = cost * TAX_RATE;
+        System.out.printf("The cost of your order is $%.2f\n", (cost + totalCost));
+        tax = totalCost * TAX_RATE;
         System.out.printf("The tax is: $%.2f\n", tax);
-        System.out.printf("The total due is: $%.2f\n", (tax + cost));
-    }   
+        System.out.printf("The total due is: $%.2f\n", (tax + (cost+totalCost)));
+        System.out.printf("Add-ons are: "+addOnList);
+    
+
+}
+       
 }
